@@ -1,7 +1,8 @@
 {
     "name": "4ernovm/datatable",
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "datatables/datatables": "~1.10"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0"
