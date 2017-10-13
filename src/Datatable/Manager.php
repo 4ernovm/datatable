@@ -108,7 +108,7 @@ class Manager
 
         // Assuming in place data rendering.
         if (empty($this->settings["bServerSide"])) {
-            if (empty($this->data[$this->name])) {
+            if (!isset($this->data[$this->name])) {
                 $this->data[$this->name] = $this->getData($this->datatable)->getData();
             }
 
