@@ -40,14 +40,20 @@ interface DatatableInterface
     /**
      * Returns list of settings to apply in JS config
      *
-     * @return array
+     * Returning array is obsolete method and it's preferrable to return
+     * Configuration instance instead
+     *
+     * @return array|Configuration
      */
     public function getConfig();
 
     /**
      * Return list of attributes to apply to head and bottom
      *
-     * @return array
+     * Returning array is obsolete method and it's preferrable to return
+     * Attributes instance instead
+     *
+     * @return array|Attributes
      */
     public function getAttributes();
 

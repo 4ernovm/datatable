@@ -28,9 +28,9 @@ class Response
      */
     public function __construct($echo, array $data = array(), $total = null, $totalDisplay = null)
     {
-        $this->echo         = $echo;
-        $this->data         = $data;
-        $this->total        = $total;
+        $this->echo = $echo;
+        $this->data = $data;
+        $this->total = $total;
         $this->totalDisplay = $totalDisplay;
     }
 
@@ -40,11 +40,10 @@ class Response
     public function __toString()
     {
         return json_encode([
-            "sEcho"                => $this->echo,
-            "iTotalRecords"        => $this->total,
-            "iTotalDisplayRecords" => $this->totalDisplay,
-            // @TODO Fix this
-            "aaData"               => array_map(function ($item) { return $item->toArray(); }, $this->data),
+            "draw" => $this->echo,
+            "recordsTotal" => $this->total,
+            "recordsFiltered" => $this->totalDisplay,
+            "data" => array_map(function ($item) { return $item->toArray(); }, $this->data),
         ]);
     }
 
