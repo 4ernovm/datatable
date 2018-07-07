@@ -2,6 +2,9 @@
 
 namespace Chernoff\Datatable;
 
+use Chernoff\Datatable\Defaults\Attributes;
+use Chernoff\Datatable\Defaults\Configuration;
+
 /**
  * Class AbstractDatatable
  *
@@ -38,13 +41,7 @@ abstract class AbstractDatatable implements DatatableInterface
      */
     public function getAttributes()
     {
-        return array(
-            "class"       => "responsive display table table-bordered",
-            "width"       => "100%",
-            "cellpadding" => "0",
-            "cellspacing" => "0",
-            "border"      => "0",
-        );
+        return new Attributes();
     }
 
     /**
@@ -52,14 +49,7 @@ abstract class AbstractDatatable implements DatatableInterface
      */
     public function getConfig()
     {
-        return array(
-            "sPaginationType" => "full_numbers",
-            "bJQueryUI"       => false,
-            "bProcessing"     => true,
-            "bServerSide"     => true,
-            "bDestroy"        => true,
-            "bStateSave"      => true,
-        );
+        return new Configuration();
     }
 
     /**
@@ -86,5 +76,19 @@ abstract class AbstractDatatable implements DatatableInterface
 
             return ($indexA > $indexB) ? 1 : -1;
         };
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function extract(Request $request)
+    {
+        return [
+            $request->getQ(),
+            $request->getOrderBy(),
+            $request->getLimit(),
+            $request->getOffset()
+        ];
     }
 }

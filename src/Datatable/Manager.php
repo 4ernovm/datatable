@@ -59,13 +59,15 @@ class Manager
             $columns[$column->getName()] = $column;
         }
 
-        $this->datatable   = $datatable;
-        $this->columns     = $columns;
-        $this->settings    = $datatable->getConfig();
-        $this->attributes  = $datatable->getAttributes();
-        $this->name        = $datatable->getName();
+        $settings = $datatable->getConfig();
+        $attributes = $datatable->getAttributes();
+        $this->datatable = $datatable;
+        $this->columns = $columns;
+        $this->settings = (is_array($settings)) ? $settings : $settings->toArray();
+        $this->attributes = (is_array($attributes)) ? $attributes : $attributes->toArray();
+        $this->name = $datatable->getName();
         $this->interactive = $datatable->getInteractive();
-        $this->delay       = $datatable->getDelay();
+        $this->delay = $datatable->getDelay();
 
         self::$renderedScripts[$datatable->getName()] = $this->js();
 
@@ -107,7 +109,7 @@ class Manager
         );
 
         // Assuming in place data rendering.
-        if (empty($this->settings["bServerSide"])) {
+        if (empty($this->settings["bServerSide"]) && empty($this->settings["serverSide"])) {
             if (!isset($this->data[$this->name])) {
                 $this->data[$this->name] = $this->getData($this->datatable)->getData();
             }
@@ -128,7 +130,14 @@ class Manager
             $this->build($datatable);
         }
 
-        $request = new Request($this->columns);
+        // Formats for older and newer versions of datatables are different.
+        // We need to generate correct request instance
+        try {
+            $request = new Request10($this->columns);
+        } catch (\LogicException $e) {
+            // Using legacy version
+            $request = new Request($this->columns);
+        }
 
         list ($data, $total, $totalDisplay) = $datatable->getData($request);
 
