@@ -6,7 +6,7 @@ namespace Chernoff\Datatable;
  * Class Row
  * @package Chernoff\Datatable
  */
-class Row
+class Row implements ArrayableInterface
 {
     /** @var  array */
     protected $data;
@@ -17,14 +17,14 @@ class Row
     /** @var  string */
     protected $class;
 
+    /** @var  array */
+    protected $attributes = [];
+
     /**
      * NOTE! Following properties are not completely supported by datatables
      * version we're currently using. They will work only in case of in place
      * data rendering.
      */
-
-    /** @var  array */
-    protected $attributes = [];
 
     /** @var  array */
     protected $cellAttributes = [];
@@ -56,12 +56,16 @@ class Row
     {
         $values = $this->data;
 
-        if (isset($this->id)) {
+        if (!empty($this->id)) {
             $values["DT_RowId"] = $this->id;
         }
 
-        if (isset($this->class)) {
+        if (!empty($this->class)) {
             $values["DT_RowClass"] = $this->class;
+        }
+
+        if (!empty($this->attributes)) {
+            $values["DT_RowAttr"] = $this->attributes;
         }
 
         return $values;
