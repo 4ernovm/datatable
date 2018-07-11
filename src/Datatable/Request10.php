@@ -57,8 +57,11 @@ class Request10 extends Request
 
         foreach ($_GET['order'] as $col) {
             $i = $col['column'];
-            $this->columns[$i]['sortDirection'] = $col['dir'];
-            $this->sort[] = [$this->columns[$i]['sortBy'], $col['dir']];
+
+            if ($this->columns[$i]['sortBy']) {
+                $this->columns[$i]['sortDirection'] = $col['dir'];
+                $this->sort[] = [$this->columns[$i]['sortBy'], $col['dir']];
+            }
         }
     }
 
