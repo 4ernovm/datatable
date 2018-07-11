@@ -13,10 +13,9 @@
             "email": "4ernovm@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Chernoff\\Datatable\\": "src/Datatable"
         }
-  }
+    }
 }
