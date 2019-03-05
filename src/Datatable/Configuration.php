@@ -66,6 +66,11 @@ class Configuration implements ArrayableInterface
     protected $dom;
 
     /**
+     * @var array
+     */
+    protected $order;
+
+    /**
      * @return string
      */
     public function getPagingType(): ?string
@@ -260,6 +265,24 @@ class Configuration implements ArrayableInterface
     public function setDom(string $dom): Configuration
     {
         $this->dom = $dom;
+        return $this;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getOrder(): ?array
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param array $order
+     * @return Configuration
+     */
+    public function setOrder(array $order): Configuration
+    {
+        $this->order = $order;
         return $this;
     }
 }
