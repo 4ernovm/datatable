@@ -22,5 +22,6 @@ class Configuration extends Base
         $this->stateSave = true;
         $this->searching = true;
         $this->ordering = true;
+        $this->order = null;
     }
 }
