@@ -11,6 +11,11 @@ class Configuration implements ArrayableInterface
     use ToArrayTrait;
 
     /**
+     * @var boolean
+     */
+    protected $paging;
+
+    /**
      * @var string
      */
     protected $pagingType;
@@ -69,6 +74,24 @@ class Configuration implements ArrayableInterface
      * @var array
      */
     protected $order;
+
+    /**
+     * @return bool
+     */
+    public function getPaging(): ?bool
+    {
+        return $this->paging;
+    }
+
+    /**
+     * @param bool $paging
+     * @return Configuration
+     */
+    public function setPaging(bool $paging): self
+    {
+        $this->paging = $paging;
+        return $this;
+    }
 
     /**
      * @return string
